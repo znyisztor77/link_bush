@@ -10,6 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+#tesztelek
+#almakorte
+
+#zoltan
+#Zoltan1234
 from pathlib import Path
 import os
 from dotenv import load_dotenv

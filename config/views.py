@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from links.models import MyLink
+
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, 'index.html')
+    mylinks = MyLink.objects.filter(user = request.user)
+    return render(request, 'index.html', {'links': mylinks})
 
 def login_page(request):
     if request.method == 'POST':

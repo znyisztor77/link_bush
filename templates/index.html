@@ -1,3 +1,34 @@
 Hello {{ user }}!
 {% csrf_token %}
 <a href="{% url 'logout' %}">Kijelentkezés</a>
+
+{%for link in links%}
+ <h4>{{link.title}}</h4>
+ <a href="{{link.url}}">{{link.url}}</a>
+
+{% if links.visible %}
+<input type="checkbox" name="" id="visible"  checked onclick="chnageVisibility({{ link_id }}, this, {% csrf_token %})">
+{%else%}
+<input type="checkbox" name="" id="visible" onclick="chnageVisibility({{ link_id }}, this , {% csrf_token %})">
+{% endif %}
+
+<button>Szerkesztés</button>
+<hr>
+{%endfor%}
+
+<script>
+    function chnageVisibility(link_id, checkbox, token){
+        fetch('api/changeisibility/',{
+            method: 'POST',
+            headers: {
+                'Content_Type':'application/json'
+            },
+            body : JSON.stringify({
+                link_id : link_id,
+                checked: checkbox.checked
+            })
+        })
+        .then(res => res.json())
+        .then(msg => console.log(msg))
+    }
+</script>
